@@ -25,3 +25,23 @@ newgrp docker
 
 # Test
 docker ps
+
+echo "================================================================================================================================================"
+echo "Instalación de Minikube"
+
+# Instalar Minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+sudo dpkg -i minikube_latest_amd64.deb
+rm minikube_latest_amd64.deb
+
+# Instalar kubectl
+sudo snap install kubectl
+
+# Agregar la ubicación de Minikube al PATH
+export PATH=$PATH:/usr/local/bin
+
+# Iniciar Minikube con Docker como driver
+minikube start --driver=docker
+
+# Levantar la UI
+kubectl -n argo port-forward service/argo-server 2746:2746
